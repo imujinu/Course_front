@@ -1,7 +1,11 @@
+import { CourseContainer, Title } from "./Course.styled";
+
 export default function Course() {
   return (
     <>
-      <h1>수강목록</h1>
+      <CourseContainer>
+        <Title>Course</Title>
+      </CourseContainer>
     </>
   );
 }

@@ -1,7 +1,13 @@
+import { Container, Title } from "./RightBar.styled";
+
 export default function RightBar() {
   return (
     <>
-      <h1>홈입니다</h1>
+      <Container>
+        <Title>
+          <h1>RightBar</h1>
+        </Title>
+      </Container>
     </>
   );
 }

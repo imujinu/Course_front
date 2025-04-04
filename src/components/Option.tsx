@@ -1,7 +1,13 @@
+import { OptionContainer, Title } from "./Option.styled";
+
 export default function Option() {
   return (
     <>
-      <h1>옵션목록</h1>
+      <OptionContainer>
+        <Title>
+          <h1>Option</h1>
+        </Title>
+      </OptionContainer>
     </>
   );
 }
