@@ -11,8 +11,27 @@ import {
   Schedule,
   TopSection,
 } from "./Main.styled";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useStore } from "../store/store";
+import CourseCard from "./CourseCard";
+import { Course } from "../interface/Course";
 
 export default function Main() {
+  const [course, setCourses] = useState<Course[]>([]);
+  const { courses, addCourse } = useStore();
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/course")
+      .then((res) => {
+        console.log(res.data);
+        setCourses(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "수강정보 조회 실패");
+      });
+  }, []);
+
   return (
     <>
       <MainSection>
@@ -25,20 +44,9 @@ export default function Main() {
           </FilterGroup>
         </TopSection>
         <BottomSection>
-          <Card>
-            <CardTitle>컴퓨터 구조</CardTitle>
-            <Badge color="#0056b3">오프라인</Badge>
-            <Badge color="#ff9900">전공</Badge>
-            <Professor>김진우 교수</Professor>
-            <Schedule>월, 목 10:00~11:50</Schedule>
-          </Card>
-          <Card>
-            <CardTitle>운영체제</CardTitle>
-            <Badge color="#28a745">온라인</Badge>
-            <Badge color="#ff5733">교양</Badge>
-            <Professor>박진우 교수</Professor>
-            <Schedule>월, 목 10:00~11:50</Schedule>
-          </Card>
+          {course.map((course, index) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
         </BottomSection>
       </MainSection>
     </>

@@ -12,11 +12,13 @@ import {
   SubmitButton,
 } from "./LeftBar.styled";
 import axios from "axios";
+import { useStore } from "../store/store";
 
 export default function LeftBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentNumber, setStudentNumber] = useState("");
   const [password, setPassword] = useState("");
+  const { name, isLogin } = useStore();
   const Login = () => {
     axios
       .post(
@@ -33,11 +35,16 @@ export default function LeftBar() {
       )
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
           alert("로그인 성공");
+
+          isLogin(res.data.name);
+          setIsModalOpen(false);
         } else {
           alert("로그인 실패");
         }
+      })
+      .catch((err) => {
+        console.error("로그인 실패:", err);
       });
   };
 
@@ -46,7 +53,13 @@ export default function LeftBar() {
       <LeftBarStyle>
         <Logo>새싹 신청</Logo>
         <Container>
-          <LoginButton onClick={() => setIsModalOpen(true)}>로그인</LoginButton>
+          {!name ? (
+            <LoginButton onClick={() => setIsModalOpen(true)}>
+              로그인
+            </LoginButton>
+          ) : (
+            ""
+          )}
 
           {isModalOpen && (
             <ModalOverlay onClick={() => setIsModalOpen(false)}>
