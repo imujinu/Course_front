@@ -28,6 +28,7 @@ export default function LeftBar() {
           password,
         },
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
@@ -36,7 +37,8 @@ export default function LeftBar() {
       .then((res) => {
         if (res.data) {
           alert("로그인 성공");
-
+          console.log(res.data.name);
+          console.log(res.data);
           isLogin(res.data.name);
           setIsModalOpen(false);
         } else {
@@ -44,7 +46,7 @@ export default function LeftBar() {
         }
       })
       .catch((err) => {
-        console.error("로그인 실패:", err);
+        console.error("로그인 에러:", err);
       });
   };
 

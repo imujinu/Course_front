@@ -22,7 +22,8 @@ export default function Main() {
   const { courses, addCourse } = useStore();
   useEffect(() => {
     axios
-      .get("http://localhost:8080/course")
+      .get("http://localhost:8080/course", { withCredentials: true })
+
       .then((res) => {
         console.log(res.data);
         setCourses(res.data);
