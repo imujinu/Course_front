@@ -2,7 +2,8 @@ import { create } from "zustand";
 
 interface Login {
   name: string;
-  isLogin: (userName: string) => void;
+  number: string;
+  isLogin: (userName: string, number: string) => void;
 }
 
 interface Course {
@@ -18,13 +19,21 @@ interface Course {
 interface Store extends Login {
   courses: Course[];
   addCourse: (course: Course) => void;
+  courseNumber: number[];
+  addCourseNumber: (number: number) => void;
 }
 
 export const useStore = create<Store>((set) => ({
   name: "",
-  isLogin: (userName: string) => set({ name: userName }),
+  number: "",
+  isLogin: (userName: string, number: string) =>
+    set({ name: userName, number: number }),
 
   courses: [],
   addCourse: (course: Course) =>
     set((state) => ({ courses: [...state.courses, course] })),
+
+  courseNumber: [],
+  addCourseNumber: (number: number) =>
+    set((state) => ({ courseNumber: [...state.courseNumber, number] })),
 }));

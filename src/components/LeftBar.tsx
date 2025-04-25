@@ -18,7 +18,7 @@ export default function LeftBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentNumber, setStudentNumber] = useState("");
   const [password, setPassword] = useState("");
-  const { name, isLogin } = useStore();
+  const { name, number, isLogin } = useStore();
   const Login = () => {
     axios
       .post(
@@ -37,9 +37,10 @@ export default function LeftBar() {
       .then((res) => {
         if (res.data) {
           alert("로그인 성공");
-          console.log(res.data.name);
           console.log(res.data);
-          isLogin(res.data.name);
+          const token = res.data.token;
+          document.cookie = `token=${token}; path=/; max-age=3600; HttpOnly`;
+          isLogin(res.data.name, res.data.number);
           setIsModalOpen(false);
         } else {
           alert("로그인 실패");

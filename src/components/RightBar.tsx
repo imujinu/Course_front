@@ -12,18 +12,18 @@ import CourseCard from "./CourseCard";
 import axios from "axios";
 
 export default function RightBar() {
-  const { courses, name } = useStore();
+  const { courses, courseNumber, name, number } = useStore();
   useEffect(() => {
-    console.log(courses);
+    console.log(courseNumber, "nubmber: ", name);
   }, [courses]);
 
   const regist = () => {
     axios
       .post(
-        "http://localhost:8080/login",
+        "http://localhost:8080/regist",
         {
-          courses,
-          name,
+          courseNumber,
+          number,
         },
         {
           withCredentials: true,
